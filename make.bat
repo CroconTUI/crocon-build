@@ -32,7 +32,11 @@ if NOT "%CROCON_DEBUG%"=="" IF NOT "%2"=="" (
 
 echo.
 
-echo [1/2] Building Crocon TUI framework from source...
+if "%CROCON_DEBUG%"=="" IF "%2"=="" (
+	echo [1/2] Building Crocon TUI framework from source...
+) else (
+	echo [1/2] Building Crocon TUI framework with debug symbols from source...
+)
 
 cd ..\library\proj\msvc
 nmake -nologo -f %CROCON_CC_TARGET%.mak
