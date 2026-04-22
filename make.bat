@@ -1,6 +1,8 @@
 @echo off
-echo.
-if NOT DEFINED CROCON_CC_TARGET (
+
+if "%CROCON_CC_TARGET%"=="" IF "%1"=="" (
+	echo.
+
 	echo You run a script designed to build the Crocon framework with demo application 
 	echo samples on Windows.
 	echo.
@@ -10,23 +12,26 @@ if NOT DEFINED CROCON_CC_TARGET (
 	echo [vc2] Microsoft Visual C++  2.0 - 2005
 	echo [vc8] Microsoft Visual C++ 2005 - 2026
 	echo.
-	set /P "CROCON_CC_TARGET=Choose your MSVC target version [vc2, vc8]: "
+	set /P CROCON_CC_TARGET=Choose your MSVC target version [vc2, vc8]: 
+) else (
+	echo.
 )
 
-if NOT DEFINED CROCON_CC_TARGET (set CROCON_CC_TARGET=vc2)
+if "%CROCON_CC_TARGET%"=="" (set CROCON_CC_TARGET=vc2)
 
 
-if NOT DEFINED CROCON_DEBUG (
-	set /P "CROCON_DEBUG=Include debug symbols before building? [y, n]: "
+if "%CROCON_DEBUG%"=="" IF "%2"=="" (
+	set /P CROCON_DEBUG=Include debug symbols before building? [y, n]: 
 )
 
-if DEFINED CROCON_DEBUG IF "%CROCON_DEBUG%"=="y" (
+if NOT "%CROCON_DEBUG%"=="" IF NOT "%2"=="" (
 	set DEBUG=1
 ) else (
 	set DEBUG=
 )
 
 echo.
+
 echo [1/2] Building Crocon TUI framework from source...
 
 cd ..\library\proj\msvc
