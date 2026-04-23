@@ -1,0 +1,35 @@
+#!/bin/bash
+
+CC="gcc"
+CC_FLAGS="-Wall -Wextra -O2"
+LD_FLAGS=""
+CROCON_DEBUG=false
+
+show_help() {
+    cat << EOF
+Crocon TUI Framework Build Configuration Script
+
+Usage: $0 [options]
+Options: [defaults in brackets after desciptions]
+    
+Help options:
+    --help		print this message
+	
+Standard options:
+    --disable-logging	do not log configure debug information
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+	--help)
+	    show_help
+	    exit 0
+	    ;;
+	*)
+	    echo "Unknown parameter '$1'"
+	    exit 1
+	    ;;
+    esac
+    shift
+done
