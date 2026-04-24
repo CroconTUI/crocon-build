@@ -44,7 +44,7 @@ makeCrocon() {
     echo
     echo "[2/2] Building Crocon Demos..."
 
-    cd demos/barebns1/proj/gcc
+    cd $CROCON_ROOT/demos/barebns1/proj/gcc
     make
     cd $CROCON_ROOT/build
     
