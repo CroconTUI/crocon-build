@@ -18,7 +18,7 @@ Help options:
 Standard options:
     --enable-debug            build and include debug symbols to binaries
     --enable-legacy-support   disable new-styled library functions to improve compatibility
-                              with older UNIX/Linux versions.
+                              with older UNIX/Linux versions
     --disable-logging         do not log configure debug information
     --prefix                  install library into specified path
 EOF
