@@ -16,7 +16,9 @@ Help options:
     --help		print this message
 	
 Standard options:
+    --enable-debug      build and include debug symbols to binaries
     --disable-logging	do not log configure debug information
+    --prefix     	install library into specified path
 EOF
 }
 
@@ -25,6 +27,16 @@ while [[ $# -gt 0 ]]; do
 	--help)
 	    show_help
 	    exit 0
+	    ;;
+	--enable-debug)
+	    CROCON_DEBUG=true
+	    shift
+	    shift
+	    ;;
+	--prefix)
+	    PREFIX="$2"
+	    shift
+	    shift
 	    ;;
 	*)
 	    echo "Unknown parameter '$1'"
@@ -35,19 +47,26 @@ while [[ $# -gt 0 ]]; do
 done
 
 makeCrocon() {
-    echo "[1/2] Building Crocon TUI Framework from source..."
+    echo "[1/4] Cleaning previous builds..."
+    rm -rf ../out
+
+    echo "[2/4] Building Crocon TUI Framework from source..."
 
     cd $CROCON_ROOT/library/proj/gcc
-    make
+    make CROCON_DEBUG=$CROCON_DEBUG
     cd $CROCON_ROOT
 
+    echo "[3/4] Installing Crocon TUI Framework... (requires su permissions)"
+
+    su -c "cp out/library/bin/libcrocon.so $PREFIX/libcrocon.so"
+
     echo
-    echo "[2/2] Building Crocon Demos..."
+    echo "[4/4] Building Crocon Demos..."
 
     cd $CROCON_ROOT/demos/barebns1/proj/gcc
-    make
+    make CROCON_DEBUG=$CROCON_DEBUG
     cd $CROCON_ROOT/build
-    
+
     echo Done!
     echo 
 }
