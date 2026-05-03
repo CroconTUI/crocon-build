@@ -16,9 +16,11 @@ Help options:
     --help		print this message
 	
 Standard options:
-    --enable-debug      build and include debug symbols to binaries
-    --disable-logging	do not log configure debug information
-    --prefix     	install library into specified path
+    --enable-debug            build and include debug symbols to binaries
+    --enable-legacy-support   disable new-styled library functions to improve compatibility
+                              with older UNIX/Linux versions.
+    --disable-logging         do not log configure debug information
+    --prefix                  install library into specified path
 EOF
 }
 
@@ -27,6 +29,11 @@ while [ $# -gt 0 ]; do
 	--help)
 	    show_help
 	    exit 0
+	    ;;
+	--enable-legacy-support)
+	    CROCON_LEGACY=true
+	    shift
+	    shift
 	    ;;
 	--enable-debug)
 	    CROCON_DEBUG=true
@@ -53,7 +60,7 @@ makeCrocon() {
     echo "[2/4] Building Crocon TUI Framework from source..."
 
     cd $CROCON_ROOT/library/proj/gcc
-    make CROCON_DEBUG=$CROCON_DEBUG
+    make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY
     cd $CROCON_ROOT
 
     echo "[3/4] Installing Crocon TUI Framework... (requires su permissions)"
@@ -64,7 +71,7 @@ makeCrocon() {
     echo "[4/4] Building Crocon Demos..."
 
     cd $CROCON_ROOT/demos/barebns1/proj/gcc
-    make CROCON_DEBUG=$CROCON_DEBUG
+    make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY
     cd $CROCON_ROOT/build
 
     echo Done!
