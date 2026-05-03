@@ -13,8 +13,8 @@ Crocon TUI Framework Build Script
 Usage: $0 [options]
     
 Help options:
-    --help		print this message
-	
+    --help                    print this message
+
 Standard options:
     --enable-debug            build and include debug symbols to binaries
     --enable-legacy-support   disable new-styled library functions to improve compatibility
