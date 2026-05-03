@@ -5,6 +5,7 @@ CC="gcc"
 CC_FLAGS="-Wall -Wextra -O2"
 LD_FLAGS=""
 CROCON_DEBUG=false
+CROCON_LEGACY=false
 
 show_help() {
     cat << EOF
@@ -26,31 +27,27 @@ EOF
 
 while [ $# -gt 0 ]; do
     case $1 in
-	--help)
-	    show_help
-	    exit 0
-	    ;;
-	--enable-legacy-support)
-	    CROCON_LEGACY=true
-	    shift
-	    shift
-	    ;;
-	--enable-debug)
-	    CROCON_DEBUG=true
-	    shift
-	    shift
-	    ;;
-	--prefix)
-	    PREFIX="$2"
-	    shift
-	    shift
-	    ;;
-	*)
-	    echo "Unknown parameter '$1'"
-	    exit 1
-	    ;;
+      --help)
+          show_help
+          exit 0
+          ;;
+      --enable-debug)
+          CROCON_DEBUG=true
+          shift
+          ;;
+      --enable-legacy-support)
+          CROCON_LEGACY=true
+          shift
+          ;;
+      --prefix)
+          PREFIX="$2"
+          shift 2
+          ;;
+      *)
+          echo "Unknown parameter '$1'"
+          exit 1
+          ;;
     esac
-    shift
 done
 
 makeCrocon() {
