@@ -24,12 +24,17 @@ if "%CROCON_DEBUG%"=="" IF "%2"=="" (
 	set /P CROCON_DEBUG=Include debug symbols before building? [y, n]: 
 )
 
-if NOT "%CROCON_DEBUG%"=="" IF NOT "%2"=="" (
+if NOT "%CROCON_DEBUG%"=="" (
 	set DEBUG=1
 ) else (
 	set DEBUG=
 )
 
+if NOT "%2"=="" (
+	set DEBUG=1
+) else (
+	set DEBUG=
+)
 echo.
 
 if "%CROCON_DEBUG%"=="" IF "%2"=="" (
