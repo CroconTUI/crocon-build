@@ -58,17 +58,35 @@ makeCrocon() {
 
     cd $CROCON_ROOT/library/proj/gcc
     make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY
+    
+    if [ $? -ne 0 ]; then
+        echo "CroconTUI build failed with error code $?."
+        exit $?
+    fi
+    
     cd $CROCON_ROOT
 
     echo "[3/4] Installing Crocon TUI Framework... (requires su permissions)"
 
     su -c "cp out/library/bin/libcrocon.so $PREFIX/libcrocon.so"
+    
+    if [ $? -ne 0 ]; then
+        echo "Crocon TUI Framework installation failed with error code $?."
+        exit $?
+    fi
 
     echo
     echo "[4/4] Building Crocon Demos..."
 
     cd $CROCON_ROOT/demos/barebns1/proj/gcc
+    
     make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY
+    
+    if [ $? -ne 0 ]; then
+        echo "Crocon Demos build failed with error code $?."
+        exit $?
+    fi
+    
     cd $CROCON_ROOT/build
 
     echo Done!
