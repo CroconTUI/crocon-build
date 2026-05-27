@@ -18,13 +18,17 @@ if "%CROCON_CC_TARGET%"=="" IF "%1"=="" (
 	echo.
 )
 
+if NOT "%1"=="" (
+	set CROCON_CC_TARGET=%1
+)
+
 if "%CROCON_CC_TARGET%"=="" (
-set CROCON_CC_TARGET=vc2
-echo  Microsoft Visual C++ 2.0 - 2003 was selected as the default target. 
-echo.
-echo. You can change the default value by setting the CROCON_CC_TARGET variable.
-echo.
-pause
+	set CROCON_CC_TARGET=vc2
+	echo Microsoft Visual C++ 2.0 - 2003 was selected as the default target. 
+	echo.
+	echo You can change the default value by setting the CROCON_CC_TARGET variable.
+	echo.
+	pause
 )
 
 
