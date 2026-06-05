@@ -20,6 +20,7 @@ Standard options:
     --enable-debug            build and include debug symbols to binaries
     --enable-legacy-support   disable new-styled library functions to improve compatibility
                               with older UNIX/Linux versions
+    --build-aout-executable   build legacy a.out-compatible binaries (deprecated since Linux 5.19)
     --disable-logging         do not log configure debug information
     --prefix                  install library into specified path
 EOF
@@ -37,6 +38,10 @@ while [ $# -gt 0 ]; do
           ;;
       --enable-legacy-support)
           CROCON_LEGACY=true
+          shift
+          ;;
+      --build-aout-executable)
+          CROCON_AOUT=true
           shift
           ;;
       --prefix)
@@ -57,7 +62,7 @@ makeCrocon() {
     echo "[2/4] Building Crocon TUI Framework from source..."
 
     cd $CROCON_ROOT/library/proj/gcc
-    make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY
+    make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY CROCON_AOUT=$CROCON_AOUT
     
     if [ $? -ne 0 ]; then
         echo "CroconTUI build failed with error code $?."
@@ -80,7 +85,7 @@ makeCrocon() {
 
     cd $CROCON_ROOT/demos/barebns1/proj/gcc
     
-    make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY
+    make CROCON_DEBUG=$CROCON_DEBUG CROCON_LEGACY=$CROCON_LEGACY CROCON_AOUT=$CROCON_AOUT
     
     if [ $? -ne 0 ]; then
         echo "Crocon Demos build failed with error code $?."
